@@ -1,4 +1,5 @@
 const { send } = require("micro");
+// const cors = require("micro-cors")();
 const { router, get, post } = require("microrouter");
 
 const loginHandler = require("./src/login");

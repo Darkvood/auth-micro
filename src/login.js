@@ -1,4 +1,9 @@
 const Joi = require("@hapi/joi");
+const { send } = require("micro");
+const parse = require("urlencoded-body-parser");
+
+const findUser = require("./libs/findUser");
+const { generatePair } = require("./libs/jwt");
 
 const loginSchema = Joi.object().keys({
   username: Joi.string()
@@ -13,5 +18,24 @@ const loginSchema = Joi.object().keys({
 });
 
 module.exports = async (req, res) => {
-  return "Login";
+  try {
+    const body = await parse(req);
+    const userData = await loginSchema.validateAsync(body);
+
+    const user = await findUser(userData);
+
+    if (user === false) {
+      return send(res, 401, { error: "User does not exist" });
+    }
+
+    const tokens = await generatePair(user);
+
+    return send(res, 201, tokens);
+  } catch (e) {
+    if (e.message) {
+      return send(res, 400, { error: e.message });
+    }
+
+    return send(res, 400, { error: e });
+  }
 };
