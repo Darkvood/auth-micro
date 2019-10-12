@@ -1,3 +1,5 @@
+const { send } = require("micro");
+
 module.exports = async (req, res) => {
-  return "Refresh route";
+  return send(res, 500);
 };

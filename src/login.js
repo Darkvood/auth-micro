@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
 
     const tokens = await generatePair(user);
 
-    return send(res, 201, tokens);
+    return send(res, 200, tokens);
   } catch (e) {
     if (e.message) {
       return send(res, 400, { error: e.message });
