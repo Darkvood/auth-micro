@@ -3,7 +3,7 @@ const bluebird = require("bluebird");
 
 bluebird.promisifyAll(jwt);
 
-const key = "test_key";
+const key = process.env.JWT_KEY;
 
 async function generatePair(user) {
   const accessToken = await jwt.signAsync({ id: user.id }, key, {
