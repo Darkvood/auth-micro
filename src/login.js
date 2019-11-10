@@ -4,6 +4,7 @@ const parse = require("urlencoded-body-parser");
 
 const findUser = require("./libs/findUser");
 const { generatePair } = require("./libs/jwt");
+const { saveRefreshToken } = require("./libs/storage");
 
 const loginSchema = Joi.object().keys({
   username: Joi.string()
@@ -29,6 +30,8 @@ module.exports = async (req, res) => {
     }
 
     const tokens = await generatePair(user);
+
+    saveRefreshToken(tokens.refreshToken);
 
     return send(res, 200, tokens);
   } catch (e) {

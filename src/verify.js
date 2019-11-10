@@ -1,15 +1,13 @@
 const { send } = require("micro");
 
-const { verify } = require("./libs/jwt");
+const { getToken, verify } = require("./libs/jwt");
 
 module.exports = async (req, res) => {
-  const { authorization } = req.headers;
+  const token = getToken(req.headers.authorization);
 
-  if (!authorization || !authorization.match(/^Bearer\s/)) {
+  if (!token) {
     return send(res, 401);
   }
-
-  const token = authorization.replace(/^Bearer\s/, "");
 
   const payload = await verify(token);
 

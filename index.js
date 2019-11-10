@@ -11,7 +11,7 @@ const verifyHandler = require("./src/verify");
 module.exports = cors(
   router(
     post("/login", loginHandler),
-    get("/refresh", refreshHandler),
+    post("/refresh", refreshHandler),
     get("/verify", verifyHandler),
     (req, res) => send(res, 404)
   )
