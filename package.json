@@ -24,7 +24,7 @@
   "homepage": "https://github.com/Darkvood/auth-micro#readme",
   "dependencies": {
     "dotenv": "^8.1.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "micro": "^9.3.4",
     "micro-cors": "^0.1.1",
     "microrouter": "^3.1.3",
